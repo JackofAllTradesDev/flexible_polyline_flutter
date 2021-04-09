@@ -6,6 +6,8 @@ Note: this is just the same as the as the package created on the link i just tra
 I used here maps code for encoding and decoding
 https://github.com/heremaps/flexible-polyline/tree/master/dart
 
+You can use this by using the link of the repository and add it as package on your pubspec.yaml
+
 ## Usage
 ## Encoding
 ```sh

@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('testLatLngZDecode', () {
-    List<LatLngZ> computed = FlexiblePolyline.decode(
-        "BGk1zxbs5o2mHoB4D3DgZAkDoBwCkD8B4ckIvCwWnBgZvvBjX_JrEnLzFrdrOrO7GzP7Gz3Bna3N7GrOnG_EvCzFvCvlBjSvbjN3NnG_TrJ7avMjDnB3hBzPrqC_iBnQvH_JrEvjCnfrE7B7GjD7LzF7VzKnpB_TnQvHnavMvR3Ize3NjI3D7L_EvRjI7LnGrT3IjI3D7ajN_E7BjSzKztBnVvgBzP3hB_O7GjDvH3DvMnGzUrJ74BvbzFvCrEvCna3N_TrJnpBrTrd7L7L3DvHvCrTjI_OnG_OvH_OvHzFvCnLzFrJrEvqB_T3D7BvR3I7G3DjDnBnGjDjD7B3rBrY3S3InpBzPnQ_EzPrEjNvCjcjD_ET_JA3NAniC7BnVnBzenBjNTjNT_JnBnzBjD31BvC_ET7kBnBnGA7LT7GTjNTzKT_JT_nBvCnQTzPArTTvHAvRnBzFTrETnGAjc7B3SnBzFAzyBvCjDAvHAjrBnB_OnB3X7BzUTrTTzFArTA3IT");
+    List<LatLngZ> computed =
+        FlexiblePolyline.decode("BFoz5xJ67i1B1B7PzIhaxL7Y");
     List<LatLngZ> expected = <LatLngZ>[];
 
     expected.add(LatLngZ(50.10228, 8.69821, 10));
@@ -14,5 +14,19 @@ void main() {
     expected.add(LatLngZ(50.09878, 8.68752, 40));
     print(computed.toList());
     // expect(computed, orderedEquals(expected));
+  });
+
+  test('testSimpleLatLngEncoding', () {
+    List<LatLngZ> pairs = <LatLngZ>[];
+    pairs.add(LatLngZ(50.1022829, 8.6982122, 10));
+    pairs.add(LatLngZ(50.1020076, 8.6956695, 20));
+    pairs.add(LatLngZ(50.1006313, 8.6914960, 30));
+    pairs.add(LatLngZ(50.0987800, 8.6875156, 40));
+
+    String expected = "BFoz5xJ67i1B1B7PzIhaxL7Y";
+    String computed =
+        FlexiblePolyline.encode(pairs, 5, ThirdDimension.ABSENT, 0);
+    print(computed);
+    expect(computed, expected);
   });
 }
