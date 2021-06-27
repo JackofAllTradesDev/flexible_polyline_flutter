@@ -100,11 +100,11 @@ class FlexiblePolyline {
   /// @see FlexiblePolyline#getThirdDimension(String) getThirdDimension
   /// @see LatLngZ
   ///
-  static List<LatLngZ> decode(String encoded) {
+  static List<LatLngZ> decode(String? encoded) {
     if (encoded == null || encoded.trim().isEmpty) {
       throw ArgumentError("Invalid argument!");
     }
-    final List<LatLngZ> results = <LatLngZ>[];
+    final List<LatLngZ> results = [];
     final _Decoder dec = _Decoder(encoded);
     LatLngZ? result;
 
@@ -129,8 +129,8 @@ class FlexiblePolyline {
   /// @param thirdDimPrecision Floating point precision for thirdDimension value
   /// @return URL-safe encoded {@link String} for the given coordinates.
   ///
-  static String encode(List<LatLngZ> coordinates, int precision,
-      ThirdDimension thirdDimension, int thirdDimPrecision) {
+  static String encode(List<LatLngZ>? coordinates, int precision,
+      ThirdDimension? thirdDimension, int thirdDimPrecision) {
     if (coordinates == null || coordinates.isEmpty) {
       throw ArgumentError("Invalid coordinates!");
     }
@@ -162,15 +162,15 @@ class FlexiblePolyline {
 /// Single instance for decoding an input request.
 class _Decoder {
   final String encoded;
-  int? index;
+  late int index;
   late Converter latConverter;
   late Converter lngConverter;
   late Converter zConverter;
   late List<String> split;
 
-  int? precision;
-  int? thirdDimPrecision;
-  ThirdDimension? thirdDimension;
+  late int precision;
+  late int thirdDimPrecision;
+  late ThirdDimension thirdDimension;
 
   _Decoder(this.encoded) {
     index = 0;
@@ -184,7 +184,7 @@ class _Decoder {
   bool hasThirdDimension() => thirdDimension != ThirdDimension.ABSENT;
 
   void _decodeHeader() {
-    final Tuple2<int, int> headerResult = decodeHeaderFromString(split, index!);
+    final Tuple2<int, int> headerResult = decodeHeaderFromString(split, index);
     int header = headerResult.item1;
     index = headerResult.item2;
     precision = header & 15; // we pick the first 3 bits only
@@ -214,13 +214,13 @@ class _Decoder {
       return null;
     }
     final Tuple2<double, int> latResult =
-        latConverter.decodeValue(split, index!);
+        latConverter.decodeValue(split, index);
     index = latResult.item2;
     final Tuple2<double, int> lngResult =
-        lngConverter.decodeValue(split, index!);
+        lngConverter.decodeValue(split, index);
     index = lngResult.item2;
     if (hasThirdDimension()) {
-      final Tuple2<double, int> zResult = zConverter.decodeValue(split, index!);
+      final Tuple2<double, int> zResult = zConverter.decodeValue(split, index);
       index = zResult.item2;
       return LatLngZ(latResult.item1, lngResult.item1, zResult.item1);
     }
@@ -281,7 +281,7 @@ class _Encoder {
     }
   }
 
-  void add(LatLngZ tuple) {
+  void add(LatLngZ? tuple) {
     if (tuple == null) {
       throw ArgumentError("Invalid LatLngZ tuple");
     }

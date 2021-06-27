@@ -4,12 +4,12 @@ import 'package:flutter_polyline_decoder/flutter_polyline_decoder.dart';
 import 'package:tuple/tuple.dart';
 
 class Converter {
-  final int? precision;
+  final int precision;
   late int multiplier;
   int lastValue = 0;
 
   Converter(this.precision) {
-    multiplier = pow(10, precision!) as int;
+    multiplier = pow(10, precision) as int;
   }
 
   // Returns decoded int, new index in tuple
